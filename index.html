@@ -5,14 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assaimant - 5 issue tracker</title>
     <!-- daisy uI and Tailwind css  -->
-     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- font integration -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
     <!-- css -->
      <link rel="stylesheet" href="tailwind.css">
+     <link rel="stylesheet" href="style.css">
+
+     <!-- font Geist -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+<!-- Tailwind + DaisyUI CDN (correct) --> 
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    plugins: [daisyui],
+  }
+</script>
+
 
 </head>
 <body>
-    <h1 class="text-7xl">Hallo</h1>
+   <!-- LOGIN section -->
+    <section class=" flex justify-center items-center min-h-screen bg-[#FBFAFC] p-4 ">
+        <div class="card bg-base-100 shadow-xl  w-full sm:w-96 md:w-[520px] h-auto md:h-[800px] pt-4">
+   
+           <div class="text-center">
+            <img src="./assets/github-logo.png" alt="" class="w-20 mx-auto block mb-6" >
+           
+            <h2 class="font-semibold text-xl sm:text-2xl md:text-3xl ">GitHub Issues Tracker</h2>
+            <p class="text-[#64748B] ">Sign in to manage your issues</p>
+
+</div>
+      <form id="loginForm"  class=" space-y-10 p-8">
+        <div>
+          <label class="font-medium">Username</label>
+        <input class="border  mt-2  border-gray-200 shadow rounded-lg px-3 py-3 w-full " type="text" id="username" placeholder="Enter your name" required >
+        <p class="text-[14px] text-[#4A00FF] mt-2">Default: admin</p>
+       </div>
+       <div>
+
+         <label class="font-medium"> Password</label>
+        <input class="border mt-2  border-gray-200 shadow rounded-lg px-3 py-3 w-full " type="password" id="password" placeholder="Enter Password" required >
+        <p class="text-[14px] text-[#4A00FF] mt-2 ">Default: admin123</p>
+        </div>
+      
+       <button class="btn bg-[#4A00FF] text-white px-3 py-3  w-full rounded-md">Sign In</button>
+
+
+       <div class="flex items-center my-4">
+        <div class="flex-grow border-t border-gray-300"></div>
+        <span class="mx-2 text-gray-500">OR</span>
+        <div class="flex-grow border-t border-gray-300"></div>
+
+
+       </div>
+
+       <div class="text-center">
+        <p class="text-[#64748B] text-[14px] mb-6 ">Demo Credentials:</p>
+        <div class="bg-[#FBFAFC] py-4">
+        <h3> <span class="font-bold">Username:</span> admin</h3>
+        <h3><span class="font-bold">Password:</span> admin123</h3>
+
+        </div>
+       </div>
+
+
+        
+
+      </form>
+        </div>
+
+
+</section>
+
 
 
 
