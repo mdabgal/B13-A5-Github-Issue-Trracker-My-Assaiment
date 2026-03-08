@@ -1,4 +1,4 @@
-// issues.js
+// issues.js api coll
 
 const API = "https://phi-lab-server.vercel.app/api/v1/lab/issues"
 
@@ -30,7 +30,18 @@ fetch(API)
 .then(res => res.json())
 .then(data => {
 
-showIssues(data.data)
+const issues = data.data
+
+const total = issues.length
+const open = issues.filter(issue => issue.status === "open").length;
+const closed = issues.filter(issue => issue.status === "closed").length;
+
+
+document.getElementById("totalIssues").innerText = total;
+document.getElementById("openCount").innerText = open;
+document.getElementById("closedCount").innerText = closed;
+
+showIssues(issues)
 
 })
 
@@ -60,10 +71,7 @@ card.className = `bg-white rounded-lg shadow border-t-4 ${borderColor} p-5 curso
 card.innerHTML = `
 
 <div class="flex justify-between items-center mb-3">
-
-<div class="w-7 h-7 rounded-full ${iconBg} flex items-center justify-center">
-<i class="fa-solid fa-circle ${iconColor} text-xs"></i>
-</div>
+<img src="./assets/Open-Status.png" alt="">
 
 <span class="bg-red-100 text-red-500 text-xs px-3 py-1 rounded-full">
 ${issue.priority}
