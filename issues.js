@@ -53,6 +53,19 @@ function showIssues(issues){
 container.innerHTML = ""
 
 issues.forEach(issue => {
+    let tags = "";
+    if(issue.tags){
+    issue.tags.forEach(tag => {
+        tags +=`
+        <span class="text-xs bg-red-100 text-red-500 px-3 py-1 rounded-full">
+        ${tag}
+        </span>`
+    })
+
+    }
+
+
+    let statusIcon = "./assets/Open-Status.png"
 
 let borderColor = "border-green-500"
 let iconColor = "text-green-500"
@@ -62,7 +75,10 @@ if(issue.status === "closed"){
 borderColor = "border-purple-500"
 iconColor = "text-purple-500"
 iconBg = "bg-purple-100"
+statusIcon = "./assets/Closed- Status .png"
 }
+
+
 
 const card = document.createElement("div")
 
@@ -71,7 +87,7 @@ card.className = `bg-white rounded-lg shadow border-t-4 ${borderColor} p-5 curso
 card.innerHTML = `
 
 <div class="flex justify-between items-center mb-3">
-<img src="./assets/Open-Status.png" alt="">
+<img src="${statusIcon}" alt="">
 
 <span class="bg-red-100 text-red-500 text-xs px-3 py-1 rounded-full">
 ${issue.priority}
@@ -87,23 +103,16 @@ ${issue.title}
 ${issue.description}
 </p>
 
-<div class="flex gap-2 mb-4">
-
-<span class="text-xs bg-red-100 text-red-500 px-3 py-1 rounded-full">
-BUG
-</span>
-
-<span class="text-xs bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full">
-HELP WANTED
-</span>
+<div class ="flex gap-2 mb-4">
+${tags}
 
 </div>
 
 <div class="border-t pt-3 text-sm text-gray-500">
 
 <p>#${issue.id} by ${issue.author}</p>
-<p>${issue.createdAt}</p>
 
+<p>${new Date(issue.createdAt).toLocaleDateString()}</p>
 </div>
 
 `
@@ -159,7 +168,7 @@ showIssues(closedIssues)
 }
 
 
-// Search issues
+// search button
 function searchIssues(){
 
 const text = document.getElementById("searchInput").value
@@ -205,10 +214,10 @@ ${issue.description}
 <p><b>Status:</b> ${issue.status}</p>
 <p><b>Priority:</b> ${issue.priority}</p>
 <p><b>Author:</b> ${issue.author}</p>
-<p><b>Created:</b> ${issue.createdAt}</p>
 
 <div class="mt-4 text-right">
 <button class="btn btn-sm btn-error closeModal">Close</button>
+<p><b>Created:</b> ${new Date(issue.createdAt).toLocaleDateString()}</p>
 </div>
 
 </div>
