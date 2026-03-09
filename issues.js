@@ -234,26 +234,87 @@ modal.className = "fixed inset-0 bg-black/40 flex justify-center items-center"
 
 modal.innerHTML = `
 
-<div class="bg-white p-6 rounded-lg w-[400px]">
 
-<h2 class="text-xl font-semibold mb-3">
+<div class="bg-white p-6 rounded-xl w-[450px] shadow-lg">
+
+<h2 class="text-xl font-semibold mb-2">
 ${issue.title}
 </h2>
 
-<p class="text-gray-600 mb-4">
+<div class="flex items-center gap-3 text-sm mb-3">
+
+<span class="bg-green-100 text-green-600 px-2 py-1 rounded-full">
+${issue.status}
+</span>
+
+<span class="text-gray-500">
+Opened by ${issue.author} • ${new Date(issue.createdAt).toLocaleDateString()}
+</span>
+
+</div>
+
+<p class="text-gray-600 text-sm mb-4">
 ${issue.description}
 </p>
 
-<p><b>Status:</b> ${issue.status}</p>
-<p><b>Priority:</b> ${issue.priority}</p>
-<p><b>Author:</b> ${issue.author}</p>
 
-<div class="mt-4 text-right">
-<button class="btn btn-sm btn-error closeModal">Close</button>
-<p><b>Created:</b> ${new Date(issue.createdAt).toLocaleDateString()}</p>
+<div class="flex gap-2 mb-3">
+
+${issue.labels.map(label => {
+
+let bg = "bg-gray-100"
+let text = "text-gray-600"
+
+if(label.toLowerCase() === "bug"){
+bg = "bg-red-100"
+text = "text-red-500"
+}
+
+if(label.toLowerCase() === "help wanted"){
+bg = "bg-yellow-100"
+text = "text-yellow-600"
+}
+
+if(label.toLowerCase() === "enhancement"){
+bg = "bg-green-100"
+text = "text-green-600"
+}
+
+return `
+<span class="text-xs ${bg} ${text} px-3 py-1 rounded-full">
+${label}
+</span>
+`
+
+}).join("")}
+
+</div>
+
+
+<div class="flex justify-between bg-gray-100 p-4 rounded-lg mb-4">
+
+<div>
+<p class="text-gray-500 text-sm">Assignee:</p>
+<p class="font-medium">${issue.author}</p>
+</div>
+
+<div>
+<p class="text-gray-500 text-sm">Priority:</p>
+<span class="bg-red-100 text-red-500 text-xs px-3 py-1 rounded-full">
+${issue.priority}
+</span>
 </div>
 
 </div>
+
+<div class="text-right">
+<button class="btn bg-[#4A00FF] text-white closeModal py-2 px-3">
+Close
+</button>
+</div>
+
+</div>
+
 
 `
 
@@ -268,7 +329,4 @@ modal.remove()
 })
 
 }
-
-
-
-loadIssues()
+loadIssues();
