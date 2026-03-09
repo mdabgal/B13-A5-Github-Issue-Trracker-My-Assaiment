@@ -32,15 +32,6 @@ fetch(API)
 
 const issues = data.data
 
-const total = issues.length
-const open = issues.filter(issue => issue.status === "open").length;
-const closed = issues.filter(issue => issue.status === "closed").length;
-
-
-document.getElementById("totalIssues").innerText = total;
-document.getElementById("openCount").innerText = open;
-document.getElementById("closedCount").innerText = closed;
-
 showIssues(issues)
 
 })
@@ -52,14 +43,57 @@ function showIssues(issues){
 
 container.innerHTML = ""
 
+const total = issues.length
+const open = issues.filter(issue => issue.status === "open").length;
+const closed = issues.filter(issue => issue.status === "closed").length;
+
+
+document.getElementById("totalIssues").innerText = total;
+document.getElementById("openCount").innerText = open;
+document.getElementById("closedCount").innerText = closed;
+
+  
 issues.forEach(issue => {
+
+let priorityColor = "bg-red-100 text-red-500"
+
+if(issue.priority === "MEDIUM"){
+priorityColor = "bg-yellow-100 text-yellow-600"
+}
+
+if(issue.priority === "LOW"){
+priorityColor = "bg-gray-200 text-gray-500"
+}
+
     let tags = "";
-    if(issue.tags){
-    issue.tags.forEach(tag => {
+    if(issue.labels && issue.labels.length > 0){
+    issue.labels.forEach(tag => {
+
+        let bg = "bg-gray-100"
+        let text = "text-gray-600"
+
+        if(tag.toLowerCase() === "bug"){
+            bg = "bg-red-100"
+            text = "text-red-500"
+        }
+
+        if(tag.toLowerCase() === "help wanted"){
+            bg = "bg-yellow-100"
+            text = "text-yellow-600"
+        }
+
+        if(tag.toLowerCase() === "enhancement"){
+            bg = "bg-green-100"
+            text = "text-green-600"
+        }
+
         tags +=`
-        <span class="text-xs bg-red-100 text-red-500 px-3 py-1 rounded-full">
+        <span class = "text-xs  ${bg} ${text} px-3 py-1 rounded-full">
         ${tag}
-        </span>`
+        </span>
+        
+        `
+       
     })
 
     }
@@ -68,8 +102,7 @@ issues.forEach(issue => {
     let statusIcon = "./assets/Open-Status.png"
 
 let borderColor = "border-green-500"
-let iconColor = "text-green-500"
-let iconBg = "bg-green-100"
+
 
 if(issue.status === "closed"){
 borderColor = "border-purple-500"
@@ -89,7 +122,7 @@ card.innerHTML = `
 <div class="flex justify-between items-center mb-3">
 <img src="${statusIcon}" alt="">
 
-<span class="bg-red-100 text-red-500 text-xs px-3 py-1 rounded-full">
+<span class="${priorityColor} text-xs px-3 py-1 rounded-full">
 ${issue.priority}
 </span>
 
